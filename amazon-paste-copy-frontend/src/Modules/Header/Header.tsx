@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const navItems = ['Home', 'About', 'Services', 'Contact'];
+const navItems = ['My Paste', 'Add a Paste'];
 
 const Header: React.FC = () => {
   const theme = useTheme();

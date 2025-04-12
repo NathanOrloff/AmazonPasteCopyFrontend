@@ -2,9 +2,7 @@ import React from 'react';
 import {
   Box,
   Container,
-  Link,
   Typography,
-  Divider,
   IconButton,
   Stack,
   useTheme,
@@ -21,27 +19,25 @@ interface FooterLink {
   url: string;
 }
 
+interface ContactInfo {
+  title: string;
+  data: string
+}
+
 interface FooterProps {
-  companyName?: string;
-  year?: number;
-  links?: FooterLink[];
+  contactInfo?: ContactInfo[];
   socialLinks?: FooterLink[];
 }
 
 const Footer: React.FC<FooterProps> = ({
-  companyName = 'Your Company',
-  year = new Date().getFullYear(),
-  links = [
-    { title: 'Privacy Policy', url: '/privacy' },
-    { title: 'Terms of Service', url: '/terms' },
-    { title: 'Contact Us', url: '/contact' },
-    { title: 'About', url: '/about' },
+  contactInfo = [
+    { title: 'Email', data: 'nathancorloff@gmail.com' },
+    { title: 'Phone', data: '(425) 785-4019' }
   ],
   socialLinks = [
-    { title: 'GitHub', url: 'https://github.com' },
-    { title: 'Twitter', url: 'https://twitter.com' },
-    { title: 'LinkedIn', url: 'https://linkedin.com' },
-    { title: 'Email', url: 'mailto:contact@example.com' },
+    { title: 'GitHub', url: 'https://github.com/NathanOrloff' },
+    { title: 'LinkedIn', url: 'https://www.linkedin.com/in/nathan-orloff/' },
+    { title: 'Email', url: 'mailto:nathancorloff@gmail.com' },
   ],
 }) => {
   const theme = useTheme();
@@ -50,6 +46,10 @@ const Footer: React.FC<FooterProps> = ({
     <Box
       component="footer"
       sx={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        width: '100%',
         py: 4,
         px: 2,
         backgroundColor: theme.palette.mode === 'light' 
@@ -69,54 +69,26 @@ const Footer: React.FC<FooterProps> = ({
             mb: 4,
           }}
         >
-          {/* Company info */}
-          <Box sx={{ maxWidth: 300 }}>
-            <Typography variant="h6" gutterBottom>
-              {companyName}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Providing quality services since {year}
-            </Typography>
-          </Box>
-
-          {/* Links section */}
-          <Box>
-            <Typography variant="subtitle1" gutterBottom>
-              Links
-            </Typography>
-            <Stack spacing={1}>
-              {links.map((link, index) => (
-                <Link 
-                  key={index} 
-                  href={link.url} 
-                  color="text.secondary"
-                  variant="body2"
-                >
-                  {link.title}
-                </Link>
-              ))}
-            </Stack>
-          </Box>
-
           {/* Contact section */}
           <Box>
             <Typography variant="subtitle1" gutterBottom>
               Contact
             </Typography>
             <Stack spacing={1}>
-              <Typography variant="body2" color="text.secondary">
-                Email: info@example.com
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Phone: (123) 456-7890
-              </Typography>
+              {
+                contactInfo.map((contact, index) => (
+                  <Typography variant="body2" color="text.secondary" key={index}>
+                    {contact.title}: {contact.data}
+                  </Typography>
+                ))
+              }
             </Stack>
           </Box>
 
           {/* Social links */}
           <Box>
             <Typography variant="subtitle1" gutterBottom>
-              Follow Us
+              Follow Me
             </Typography>
             <Stack direction="row" spacing={1}>
               {socialLinks.map((social, index) => (
@@ -137,17 +109,6 @@ const Footer: React.FC<FooterProps> = ({
             </Stack>
           </Box>
         </Box>
-
-        <Divider sx={{ my: 2 }} />
-
-        {/* Copyright */}
-        <Typography 
-          variant="body2" 
-          color="text.secondary" 
-          textAlign="center"
-        >
-          {`© ${year} ${companyName}. All rights reserved.`}
-        </Typography>
       </Container>
     </Box>
   );
