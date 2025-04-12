@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { postPaste } from '../../Api/PostPaste'
 import {
   Box,
   TextField,
@@ -19,6 +20,10 @@ const Body: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // handle response
+    postPaste(inputTitle, inputValue, days);
+
     setInputTitle('');
     setInputValue('');
   };
